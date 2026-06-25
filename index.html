@@ -7,32 +7,15 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{
-  font-family:'Inter','Segoe UI',system-ui,sans-serif;
-  font-size:15px;line-height:1.6;
-  background-color:#111827;color:#f0f2f7;
-  background-image:
-    radial-gradient(ellipse at 20% 0%,rgba(59,130,246,0.08) 0%,transparent 50%),
-    radial-gradient(ellipse at 80% 100%,rgba(99,102,241,0.06) 0%,transparent 50%);
-  background-attachment:fixed;
-}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.6;background-color:#111827;color:#f0f2f7;background-image:radial-gradient(ellipse at 20% 0%,rgba(59,130,246,0.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(99,102,241,0.06) 0%,transparent 50%);background-attachment:fixed;}
 a{text-decoration:none;color:inherit;}
 button{cursor:pointer;font-family:inherit;font-size:inherit;}
-.gradient-text{
-  background:linear-gradient(135deg,#60d0f8,#4f97f5,#818cf8);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.btn-primary{
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  background:linear-gradient(135deg,#3b82f6,#4338ca);
-  color:#fff;font-weight:600;font-size:14px;
-  padding:11px 24px;border-radius:12px;border:none;
-  transition:all .2s ease;cursor:pointer;text-decoration:none;
-}
+.gradient-text{background:linear-gradient(135deg,#60d0f8,#4f97f5,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#3b82f6,#4338ca);color:#fff;font-weight:600;font-size:14px;padding:11px 24px;border-radius:12px;border:none;transition:all .2s ease;cursor:pointer;text-decoration:none;}
 .btn-primary:hover{background:linear-gradient(135deg,#60a5fa,#6366f1);box-shadow:0 4px 20px rgba(59,130,246,0.45);transform:translateY(-1px);}
 .btn-primary:active{transform:translateY(0);}
 .card-hover{transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;cursor:pointer;}
-.card-hover:hover{transform:translateY(-6px);border-color:rgba(59,130,246,0.55)!important;box-shadow:0 20px 50px rgba(0,0,0,0.45),0 0 30px rgba(59,130,246,0.18);}
+.card-hover:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,0.45);}
 
 /* Header */
 .hdr{position:sticky;top:0;z-index:99;border-bottom:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(14,19,36,0.82);}
@@ -79,21 +62,46 @@ button{cursor:pointer;font-family:inherit;font-size:inherit;}
 .section-title{font-size:clamp(20px,2.8vw,28px);font-weight:900;margin-bottom:10px;}
 .section-sub{font-size:13px;color:#7a8fa8;}
 
-/* ROM Card */
+/* ROM Grid */
 .rom-grid{max-width:1152px;margin:0 auto;}
-.rom-card{position:relative;border-radius:18px;border:1px solid rgba(255,255,255,0.1);background:#161e2e;overflow:hidden;max-width:380px;}
-.rom-card-shine{position:absolute;top:0;left:0;right:0;height:92px;background:linear-gradient(135deg,rgba(59,130,246,0.22),rgba(79,70,229,0.12));opacity:.65;}
+.rom-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;justify-items:center;}
+
+/* ROM Card */
+.rom-card{position:relative;border-radius:18px;border:1px solid rgba(255,255,255,0.1);background:#161e2e;overflow:hidden;width:100%;max-width:420px;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;cursor:pointer;}
+/* Infinity X hover */
+.rom-card.ix:hover{transform:translateY(-6px);border-color:rgba(59,130,246,0.55)!important;box-shadow:0 20px 50px rgba(0,0,0,0.45),0 0 30px rgba(59,130,246,0.18);}
+/* LineageOS hover */
+.rom-card.los:hover{transform:translateY(-6px);border-color:rgba(132,204,22,0.55)!important;box-shadow:0 20px 50px rgba(0,0,0,0.45),0 0 30px rgba(132,204,22,0.18);}
+
+.rom-card-shine-ix{position:absolute;top:0;left:0;right:0;height:92px;background:linear-gradient(135deg,rgba(59,130,246,0.22),rgba(79,70,229,0.12));opacity:.65;}
+.rom-card-shine-los{position:absolute;top:0;left:0;right:0;height:92px;background:linear-gradient(135deg,rgba(132,204,22,0.22),rgba(22,163,74,0.12));opacity:.65;}
 .rom-card-body{position:relative;padding:24px;}
 .rom-card-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}
-.rom-icon{width:56px;height:56px;border-radius:13px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:#60a5fa;}
-.chip{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;background:rgba(59,130,246,0.18);color:#93c5fd;border:1px solid rgba(59,130,246,0.3);}
-.rom-name{font-size:18px;font-weight:900;margin-bottom:4px;transition:color .2s;}
-.rom-card:hover .rom-name{color:#60a5fa;}
+
+/* Icon */
+.rom-icon-ix{width:56px;height:56px;border-radius:13px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:#60a5fa;}
+.rom-icon-los{width:56px;height:56px;border-radius:13px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:#86efac;}
+
+/* Chips */
+.chip-ix{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;background:rgba(59,130,246,0.18);color:#93c5fd;border:1px solid rgba(59,130,246,0.3);}
+.chip-los{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;background:rgba(132,204,22,0.18);color:#bef264;border:1px solid rgba(132,204,22,0.3);}
+
+.rom-name-ix{font-size:18px;font-weight:900;margin-bottom:4px;transition:color .2s;}
+.rom-card.ix:hover .rom-name-ix{color:#60a5fa;}
+.rom-name-los{font-size:18px;font-weight:900;margin-bottom:4px;transition:color .2s;}
+.rom-card.los:hover .rom-name-los{color:#86efac;}
+
 .rom-tagline{font-size:12px;color:#7a8fa8;font-weight:500;margin-bottom:4px;}
 .rom-desc{font-size:12px;color:rgba(122,143,168,0.72);margin-bottom:14px;line-height:1.55;}
 .pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;}
 .pill{font-size:10px;font-weight:500;padding:2px 9px;border-radius:999px;background:rgba(255,255,255,0.06);color:#7a8fa8;border:1px solid rgba(255,255,255,0.09);}
 .rom-meta{display:flex;align-items:center;gap:7px;font-size:12px;color:#7a8fa8;margin-bottom:6px;}
+
+/* View Guide buttons */
+.vg-btn-ix{display:inline-flex;align-items:center;justify-content:center;width:100%;background:linear-gradient(135deg,#3b82f6,#4338ca);color:#fff;font-weight:600;font-size:14px;padding:11px 24px;border-radius:12px;border:none;transition:all .2s;cursor:pointer;text-decoration:none;}
+.vg-btn-ix:hover{background:linear-gradient(135deg,#60a5fa,#6366f1);box-shadow:0 4px 20px rgba(59,130,246,0.45);transform:translateY(-1px);}
+.vg-btn-los{display:inline-flex;align-items:center;justify-content:center;width:100%;background:linear-gradient(135deg,#65a30d,#16a34a);color:#fff;font-weight:600;font-size:14px;padding:11px 24px;border-radius:12px;border:none;transition:all .2s;cursor:pointer;text-decoration:none;}
+.vg-btn-los:hover{background:linear-gradient(135deg,#84cc16,#22c55e);box-shadow:0 4px 20px rgba(132,204,22,0.45);transform:translateY(-1px);}
 
 /* Requirements */
 .req-grid{max-width:740px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;}
@@ -123,7 +131,7 @@ button{cursor:pointer;font-family:inherit;font-size:inherit;}
 .credit-pill .made{font-size:12px;color:rgba(122,143,168,0.75);}
 .credit-pill .name{font-size:12px;font-weight:600;color:#93c5fd;}
 
-@media(max-width:580px){.nav-links{display:none;}.hero{padding:60px 16px 80px;}.section,.section-alt{padding:56px 16px;}}
+@media(max-width:580px){.nav-links{display:none;}.hero{padding:60px 16px 80px;}.section,.section-alt{padding:56px 16px;}.rom-cards{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -140,7 +148,7 @@ button{cursor:pointer;font-family:inherit;font-size:inherit;}
       <a href="#requirements">Requirements</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a href="https://github.com/search?q=raphael+custom+rom&type=repositories" target="_blank" rel="noopener" class="nav-gh">GitHub</a>
+    <a href="https://t.me/raphaelvault" target="_blank" rel="noopener" class="nav-gh">Telegram</a>
   </div>
 </header>
 
@@ -167,7 +175,7 @@ button{cursor:pointer;font-family:inherit;font-size:inherit;}
 <!-- Stats bar -->
 <div class="stats-bar">
   <div class="stats-grid">
-    <div><div class="stat-val gradient-text">1</div><div class="stat-lbl">ROMs Available</div></div>
+    <div><div class="stat-val gradient-text">2</div><div class="stat-lbl">ROMs Available</div></div>
     <div><div class="stat-val gradient-text">16</div><div class="stat-lbl">Android Version</div></div>
     <div><div class="stat-val gradient-text">Active</div><div class="stat-lbl">Device Support</div></div>
   </div>
@@ -180,37 +188,40 @@ button{cursor:pointer;font-family:inherit;font-size:inherit;}
       <div class="section-title">Available ROMs</div>
       <div class="section-sub">Handpicked custom ROMs with detailed step-by-step flashing guides for the Redmi K20 Pro.</div>
     </div>
-    <div class="rom-card card-hover" onclick="window.location.href='viewguide.html'">
-      <div class="rom-card-shine"></div>
-      <div class="rom-card-body">
-        <div class="rom-card-head">
-          <div class="rom-icon">
-            <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 12c-2-2.5-4-4-6-4a4 4 0 0 0 0 8c2 0 4-1.5 6-4z"/>
-              <path d="M12 12c2 2.5 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.5-6 4z"/>
-            </svg>
+    <div class="rom-cards">
+
+      <!-- Infinity X Card -->
+      <div class="rom-card ix" onclick="window.location.href='viewguide.html'">
+        <div class="rom-card-shine-ix"></div>
+        <div class="rom-card-body">
+          <div class="rom-card-head">
+            <div class="rom-icon-ix">
+              <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 12c-2-2.5-4-4-6-4a4 4 0 0 0 0 8c2 0 4-1.5 6-4z"/>
+                <path d="M12 12c2 2.5 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.5-6 4z"/>
+              </svg>
+            </div>
+            <span class="chip-ix">Stable</span>
           </div>
-          <span class="chip">Stable</span>
+          <div class="rom-name-ix">Infinity X</div>
+          <div class="rom-tagline">Boundless Customization, Infinite Performance</div>
+          <div class="rom-desc">A powerful AOSP-based custom ROM built for enthusiasts who demand both performance and deep personalization. Infinity X delivers a fluid, feature-rich experience with a clean UI and regular updates.</div>
+          <div class="pills">
+            <span class="pill">Deep customization</span>
+            <span class="pill">Smooth performance</span>
+            <span class="pill">Regular OTA updates</span>
+          </div>
+          <div class="rom-meta">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            Android 16
+          </div>
+          <div class="rom-meta" style="margin-bottom:20px;">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Muhammad Al Arabi 🇧🇩
+          </div>
+          <a href="viewguide.html" class="vg-btn-ix" onclick="event.stopPropagation()">View Guide</a>
         </div>
-        <div class="rom-name">Infinity X</div>
-        <div class="rom-tagline">Boundless Customization, Infinite Performance</div>
-        <div class="rom-desc">A powerful AOSP-based custom ROM built for enthusiasts who demand both performance and deep personalization. Infinity X delivers a fluid, feature-rich experience with a clean UI and regular updates.</div>
-        <div class="pills">
-          <span class="pill">Deep customization</span>
-          <span class="pill">Smooth performance</span>
-          <span class="pill">Regular OTA updates</span>
-        </div>
-        <div class="rom-meta">
-          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-          Android 16
-        </div>
-        <div class="rom-meta" style="margin-bottom:20px;">
-          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          Muhammad Al Arabi 🇧🇩
-        </div>
-        <a href="viewguide.html" class="btn-primary" style="width:100%;justify-content:center;" onclick="event.stopPropagation()">View Guide</a>
       </div>
-    </div>
 
       <!-- LineageOS Card -->
       <div class="rom-card los" onclick="window.location.href='viewguide-lineage.html'">
@@ -247,6 +258,7 @@ button{cursor:pointer;font-family:inherit;font-size:inherit;}
         </div>
       </div>
 
+    </div>
   </div>
 </section>
 
@@ -303,4 +315,3 @@ button{cursor:pointer;font-family:inherit;font-size:inherit;}
 
 </body>
 </html>
-
