@@ -153,6 +153,9 @@ button{cursor:pointer;font-family:inherit;font-size:inherit;}
         <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
         Support Group
       </a>
+      <button onclick="document.getElementById('screenshotModal').style.display='flex'" class="btn-primary" style="background:transparent;border:2px solid #4ade80;color:#4ade80;width:100%;">
+        📸 Screenshots
+      </button>
     </div>
   </div>
 </section>
@@ -278,6 +281,26 @@ function switchTab(tab) {
   document.getElementById('btn-clean').className = 'tab-btn' + (clean ? ' active' : '');
   document.getElementById('btn-dirty').className = 'tab-btn' + (clean ? '' : ' active');
 }
+</script>
+<div id="screenshotModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.92);z-index:9999;justify-content:center;align-items:center;flex-direction:column;padding:20px;box-sizing:border-box;">
+  <button onclick="document.getElementById('screenshotModal').style.display='none'" style="position:absolute;top:20px;right:24px;background:none;border:none;color:white;font-size:32px;cursor:pointer;">✕</button>
+  <p style="color:#4ade80;font-size:14px;letter-spacing:2px;margin-bottom:16px;">SCREENSHOTS</p>
+  <div style="display:flex;align-items:center;gap:12px;max-width:400px;width:100%;">
+    <button onclick="changeScreenshot(-1)" style="background:none;border:none;color:white;font-size:28px;cursor:pointer;">&#8249;</button>
+    <img id="screenshotImg" src="screenshots/lineage/1.png" style="width:100%;border-radius:16px;max-height:70vh;object-fit:contain;">
+    <button onclick="changeScreenshot(1)" style="background:none;border:none;color:white;font-size:28px;cursor:pointer;">&#8250;</button>
+  </div>
+  <div id="screenshotDots" style="display:flex;gap:8px;margin-top:16px;"></div>
+  <p id="screenshotCounter" style="color:#aaa;font-size:13px;margin-top:8px;">1 / 7</p>
+</div>
+<script>
+const screenshots=["screenshots/lineage/1.png","screenshots/lineage/2.png","screenshots/lineage/3.png","screenshots/lineage/4.png","screenshots/lineage/5.png","screenshots/lineage/6.png","screenshots/lineage/7.png"];
+let currentIdx=0;
+function renderDots(){const d=document.getElementById("screenshotDots");d.innerHTML="";screenshots.forEach((_,i)=>{const dot=document.createElement("div");dot.style.cssText="width:8px;height:8px;border-radius:50%;background:"+(i===currentIdx?"#4ade80":"#555")+";cursor:pointer;transition:background 0.2s";dot.onclick=()=>{currentIdx=i;updateScreenshot();};d.appendChild(dot);});}
+function updateScreenshot(){document.getElementById("screenshotImg").src=screenshots[currentIdx];document.getElementById("screenshotCounter").textContent=(currentIdx+1)+" / "+screenshots.length;renderDots();}
+function changeScreenshot(dir){currentIdx=(currentIdx+dir+screenshots.length)%screenshots.length;updateScreenshot();}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")document.getElementById("screenshotModal").style.display="none";if(e.key==="ArrowRight")changeScreenshot(1);if(e.key==="ArrowLeft")changeScreenshot(-1);});
+renderDots();
 </script>
 </body>
 </html>
